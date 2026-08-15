@@ -30,15 +30,15 @@ on:
   push:
     branches: [ "main" ]
 
-env:
-  AWS_REGION: MY_AWS_REGION                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: MY_ECR_REPOSITORY           # set this to your Amazon ECR repository name
-  ECS_SERVICE: MY_ECS_SERVICE                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: MY_ECS_CLUSTER                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
-                                               # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: MY_CONTAINER_NAME           # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
+# env:
+#   AWS_REGION: MY_AWS_REGION                   # set this to your preferred AWS region, e.g. us-west-1
+#   ECR_REPOSITORY: MY_ECR_REPOSITORY           # set this to your Amazon ECR repository name
+#   ECS_SERVICE: MY_ECS_SERVICE                 # set this to your Amazon ECS service name
+#   ECS_CLUSTER: MY_ECS_CLUSTER                 # set this to your Amazon ECS cluster name
+#   ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
+#                                                # file, e.g. .aws/task-definition.json
+#   CONTAINER_NAME: MY_CONTAINER_NAME           # set this to the name of the container in the
+#                                                # containerDefinitions section of your task definition
 
 permissions:
   contents: read
@@ -54,7 +54,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Deploy to AWS via SSH
-      uses: aaws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@v1
       with:
         host: ${{ secrets.AWS_HOST }}
         username: ${{ secrets.AWS_USERNAME }}
@@ -64,9 +64,9 @@ jobs:
           git pull origin main
           docker-compose up -d --build
 
-        # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
+        aws-access-key-id: ${{ secrets.AWS_USERNAME }}
+        aws-secret-access-key: ${{ secrets.AWS_KEY }}
+        aws-region: ${{ vars.AWS_REGION }}
 
 
     # - name: Configure AWS credentials
