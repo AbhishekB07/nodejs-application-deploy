@@ -54,7 +54,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Deploy to AWS via SSH
-      uses: appleboy/ssh-action@master
+      uses: aaws-actions/configure-aws-credentials@v1
       with:
         host: ${{ secrets.AWS_HOST }}
         username: ${{ secrets.AWS_USERNAME }}
