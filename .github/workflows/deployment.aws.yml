@@ -56,10 +56,8 @@ jobs:
         # 2. OPTIONAL: This passes your AWS_REGION variable safely to the server shell if needed
         envs: AWS_REGION
         script: |
-          # 3. FIXED: Changed path to home folder template if it lives inside your ec2-user directory
           cd ~/nodejs-application-deploy || cd /nodejs-application-deploy
           git pull origin main
-          # 4. FIXED: Updated 'docker-compose' to 'docker compose' to match your updated plugins
           docker compose up -d --build
         
 
